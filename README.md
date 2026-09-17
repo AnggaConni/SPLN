@@ -2,8 +2,6 @@
 
 Portal web interaktif untuk melihat, mencari, dan menambahkan data komprehensif mengenai sistem pendidikan, kurikulum, kalender akademik, serta kontak perwakilan pendidikan Indonesia (KBRI/KJRI) di berbagai negara.
 
-![SPLN Web Preview]([https://via.placeholder.com/1000x500.png?text=Screenshot+Website+SPLN](https://github.com/AnggaConni/SPLN/blob/main/thumbnail.png)) *(Silakan ganti link gambar ini dengan screenshot asli website Anda)*
-
 ## ✨ Fitur Utama
 
 - **🚀 Real-time Data Fetching:** Mengambil data langsung dari Google Sheets (Published to Web) secara *real-time*.
