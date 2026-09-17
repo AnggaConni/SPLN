@@ -1,2 +1,5 @@
 User-agent: *
-Disallow: /
+Allow: /
+
+# The site uses meta robots noindex/nofollow to request that compliant search engines
+# do not index the public SPLN page.
