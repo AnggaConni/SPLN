@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Pendidikan Luar Negeri (SPLN)</title>
     
+    <!-- Favicon (SVG Globe Teal) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'/%3E%3Ccircle cx='128' cy='128' r='96' fill='none' stroke='%23007078' stroke-linecap='round' stroke-linejoin='round' stroke-width='20'/%3E%3Cellipse cx='128' cy='128' rx='40' ry='96' fill='none' stroke='%23007078' stroke-linecap='round' stroke-linejoin='round' stroke-width='20'/%3E%3Cline x1='32' y1='128' x2='224' y2='128' fill='none' stroke='%23007078' stroke-linecap='round' stroke-linejoin='round' stroke-width='20'/%3E%3C/svg%3E">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -401,6 +404,7 @@
         }
 
         // Render Cards
+// Render Cards
         function renderCards(data) {
             const grid = document.getElementById('data-grid');
             const emptyState = document.getElementById('empty-state');
@@ -417,38 +421,52 @@
 
             data.forEach((item, index) => {
                 const card = document.createElement('div');
-                card.className = 'pillar-card rounded-xl p-5 flex flex-col h-full cursor-pointer relative overflow-hidden group';
-                // Decoration line
-                card.innerHTML += `<div class="absolute top-0 left-0 w-full h-1 bg-pearsonNavy group-hover:bg-pearsonTeal transition-colors"></div>`;
+                card.className = 'bg-white border border-pearsonTeal rounded-xl p-5 flex flex-col h-full cursor-pointer hover:shadow-xl transition-shadow duration-300 group';
                 
-                card.innerHTML += `
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <h3 class="text-xl font-bold text-pearsonNavy group-hover:text-pearsonTeal transition-colors">${item.negara}</h3>
-                            <p class="text-sm text-gray-500 flex items-center gap-1 mt-1"><i class="ph ph-buildings"></i> ${item.kbri}</p>
-                        </div>
-                        <span class="framework-pill bg-blue-100 text-blue-700">SPLN</span>
+                let badgeText = item.kbri.replace(/KBRI |KJRI /i, '').toUpperCase();
+                
+                card.innerHTML = `
+                    <!-- Header -->
+                    <div class="flex justify-between items-start gap-3">
+                        <h3 class="text-xl font-bold text-pearsonNavy leading-tight group-hover:text-pearsonTeal transition-colors">${item.negara}</h3>
+                        <span class="bg-gray-200 text-gray-700 text-[10px] sm:text-xs font-semibold px-3 py-1 rounded-full tracking-wider whitespace-nowrap flex-shrink-0 mt-0.5">
+                            ${badgeText}
+                        </span>
                     </div>
                     
-                    <div class="space-y-2 text-sm text-gray-600 flex-grow">
-                        <div class="flex items-start gap-2">
-                            <i class="ph ph-calendar-blank text-lg text-pearsonTeal mt-0.5"></i>
-                            <div>
-                                <span class="font-semibold block text-gray-800">Tahun Ajaran</span>
-                                ${item.mulai} — ${item.akhir}
-                            </div>
+                    <!-- Alamat -->
+                    <p class="text-sm text-gray-500 mt-2 mb-4 line-clamp-1" title="${item.alamat}">${item.alamat}</p>
+                    
+                    <!-- Info List (Rapih & Anti-Mendesak Label) -->
+                    <div class="space-y-3 text-sm mt-auto border-t border-gray-100 pt-3">
+                        <div class="flex justify-between items-start gap-4">
+                            <span class="text-gray-600 whitespace-nowrap shrink-0">Mulai Ajaran:</span>
+                            <!-- line-clamp membatasi maksimal 3 baris agar card tidak memanjang drastis -->
+                            <span class="font-semibold text-pearsonPurple text-right line-clamp-3" title="${item.mulai}">${item.mulai}</span>
                         </div>
-                        <div class="flex items-start gap-2">
-                            <i class="ph ph-user-circle text-lg text-pearsonTeal mt-0.5"></i>
-                            <div>
-                                <span class="font-semibold block text-gray-800">Kontak</span>
-                                ${formatInfo(item.cp)}
-                            </div>
+                        <div class="flex justify-between items-start gap-4">
+                            <span class="text-gray-600 whitespace-nowrap shrink-0">CP / Email:</span>
+                            <span class="font-medium text-gray-800 text-right line-clamp-2" title="${item.cp}">${formatInfo(item.cp)}</span>
                         </div>
                     </div>
                     
-                    <div class="mt-5 pt-4 border-t border-gray-100">
-                        <button class="w-full text-center text-pearsonTeal font-medium text-sm hover:text-teal-800 flex items-center justify-center gap-1">
+                    <!-- Box Info Bawah -->
+                    <div class="mt-4 bg-gray-50 rounded-lg p-3 sm:p-4 text-sm text-gray-800">
+                        <div class="mb-1">
+                            <span class="font-bold">SD:</span> ${item.usiaSd} (Kelas ${item.jenjangSd})
+                        </div>
+                        <div class="mb-2">
+                            <span class="font-bold">SMP:</span> ${item.usiaSmp} (Kelas ${item.jenjangSmp})
+                        </div>
+                        <div class="mt-2">
+                            <span class="font-bold block text-gray-900">Keterangan:</span>
+                            <span class="italic text-gray-600 line-clamp-2" title="${item.ket}">${item.ket || 'Tidak ada keterangan'}</span>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Lihat Detail Lengkap -->
+                    <div class="mt-5 pt-4 border-t border-gray-100 mt-auto">
+                        <button class="w-full text-center text-pearsonTeal font-medium text-sm hover:text-teal-800 flex items-center justify-center gap-1 group-hover:gap-2 transition-all duration-300">
                             Lihat Detail Lengkap <i class="ph ph-arrow-right"></i>
                         </button>
                     </div>
