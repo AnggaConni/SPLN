@@ -128,6 +128,31 @@
             border-radius: 20px;
         }
 
+        /* Glowing data sync notice */
+        .dataset-sync-notice {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            margin-top: 1.25rem;
+            padding: 0.7rem 1rem;
+            border: 1px solid rgba(45, 212, 191, 0.55);
+            border-radius: 999px;
+            background: rgba(15, 118, 110, 0.18);
+            color: #ccfbf1;
+            box-shadow: 0 0 12px rgba(45, 212, 191, 0.28), 0 0 28px rgba(45, 212, 191, 0.12);
+            animation: datasetGlow 2.2s ease-in-out infinite;
+        }
+        .dataset-sync-notice i {
+            filter: drop-shadow(0 0 5px rgba(153, 246, 228, 0.8));
+        }
+        @keyframes datasetGlow {
+            0%, 100% { box-shadow: 0 0 10px rgba(45, 212, 191, 0.22), 0 0 22px rgba(45, 212, 191, 0.08); }
+            50% { box-shadow: 0 0 18px rgba(45, 212, 191, 0.42), 0 0 34px rgba(45, 212, 191, 0.16); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .dataset-sync-notice { animation: none; }
+        }
+
         /* Custom Scrollbar for Modals */
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
@@ -142,6 +167,10 @@
         <div class="max-w-7xl mx-auto">
             <h1 class="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Data Sistem Pendidikan Luar Negeri</h1>
             <p class="text-lg md:text-xl opacity-90 max-w-2xl font-light">Informasi komprehensif mengenai kurikulum, kalender akademik, dan kontak perwakilan pendidikan Indonesia di berbagai negara.</p>
+            <div class="dataset-sync-notice" role="status" aria-live="polite">
+                <i class="ph ph-clock text-lg"></i>
+                <span class="text-sm md:text-base font-medium">Tunggu 5–15 menit setelah input data agar muncul di dataset.</span>
+            </div>
         </div>
     </header>
 
